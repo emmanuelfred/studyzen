@@ -20,9 +20,7 @@ One shared codebase (about 94% of the app code) runs on **Android, Desktop (Wind
 |---|---|
 | **Web (launch in your browser)** | **https://emmanuelfred.github.io/studyzen/** |
 | Android | [StudyZen-android.apk](https://github.com/emmanuelfred/studyzen/releases/latest/download/StudyZen-android.apk) (allow "install unknown apps") |
-| Windows | [StudyZen-windows.msi](https://github.com/emmanuelfred/studyzen/releases/latest/download/StudyZen-windows.msi) |
-| macOS | [StudyZen-macos.dmg](https://github.com/emmanuelfred/studyzen/releases/latest/download/StudyZen-macos.dmg) |
-| Linux | [StudyZen-linux.deb](https://github.com/emmanuelfred/studyzen/releases/latest/download/StudyZen-linux.deb) |
+| Windows | [StudyZen-windows.msi](https://github.com/emmanuelfred/studyzen/releases/latest/download/StudyZen-windows.msi) (Windows may warn "unknown publisher": choose *More info* then *Run anyway*) |
 
 All builds are on the [Releases page](https://github.com/emmanuelfred/studyzen/releases). Open the app and choose **Try without an account** to explore right away.
 
