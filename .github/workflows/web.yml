@@ -1,0 +1,35 @@
+# Publishes the web version so people can launch StudyZen in the browser.
+# One-time setup on GitHub: Settings -> Pages -> Source: "GitHub Actions".
+# Live address: https://<your-user>.github.io/<repo-name>/
+name: Web demo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew && ./gradlew :webApp:wasmJsBrowserDistribution
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: webApp/build/dist/wasmJs/productionExecutable }
+      - id: deployment
+        uses: actions/deploy-pages@v4

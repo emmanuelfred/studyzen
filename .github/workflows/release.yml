@@ -1,0 +1,72 @@
+# Builds downloadable apps and publishes them on the GitHub "Releases" page.
+# Trigger: push a tag such as v1.0.0   (git tag v1.0.0 && git push origin v1.0.0)
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew && ./gradlew :androidApp:assembleDebug
+      - run: cp androidApp/build/outputs/apk/debug/*.apk StudyZen-android.apk
+      - uses: actions/upload-artifact@v4
+        with: { name: android, path: StudyZen-android.apk }
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - run: .\gradlew.bat :desktopApp:packageMsi
+      - shell: bash
+        run: cp desktopApp/build/compose/binaries/main/msi/*.msi StudyZen-windows.msi
+      - uses: actions/upload-artifact@v4
+        with: { name: windows, path: StudyZen-windows.msi }
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew && ./gradlew :desktopApp:packageDmg
+      - run: cp desktopApp/build/compose/binaries/main/dmg/*.dmg StudyZen-macos.dmg
+      - uses: actions/upload-artifact@v4
+        with: { name: macos, path: StudyZen-macos.dmg }
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: gradle/actions/setup-gradle@v4
+      - run: chmod +x gradlew && ./gradlew :desktopApp:packageDeb
+      - run: cp desktopApp/build/compose/binaries/main/deb/*.deb StudyZen-linux.deb
+      - uses: actions/upload-artifact@v4
+        with: { name: linux, path: StudyZen-linux.deb }
+
+  release:
+    needs: [android, windows, macos, linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: dist, merge-multiple: true }
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true

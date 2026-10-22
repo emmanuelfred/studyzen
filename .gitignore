@@ -1,0 +1,32 @@
+*.iml
+.kotlin
+.gradle
+**/build/
+xcuserdata
+!src/**/build/
+local.properties
+.idea
+.DS_Store
+captures
+.externalNativeBuild
+.cxx
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+node_modules/
+
+# Secrets and local configuration (never commit these)
+.env
+backend/.env
+backend/node_modules/
+backend/firebase-service-account.json
+backend/client_secret_*.json
+**/google-services.json
+*.keystore
+*.jks
+
+# Desktop Google sign-in credentials (local only)
+desktopApp/src/main/resources/google-desktop.properties

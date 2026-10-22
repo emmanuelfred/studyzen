@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches the top of the splash gradient so there is no white flash on launch. -->
+    <color name="splash_background">#E6DEFF</color>
+    <color name="studyzen_purple">#7655D9</color>
+</resources>
