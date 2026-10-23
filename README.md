@@ -11,7 +11,7 @@
 One shared codebase (about 94% of the app code) runs on **Android, Desktop (Windows / macOS / Linux), Web (Wasm and JS) and iOS**.
 
 - Essay: [ESSAY.md](ESSAY.md)
-- Demo video: [watch it here](#demo-video)
+- Demo video: [watch it here](https://www.youtube.com/watch?v=Hm7-XcBtds4)
 - License: [MIT](LICENSE)
 
 ## Download and try
